@@ -1,0 +1,13 @@
+**/*.tfstate
+**/*.tfstate.*
+**/.terraform/*
+**/.terraform.lock.hcl
+backup_lambda.zip
+tfplan
+output.json
+.serverless
+node_modules
+todo.md
+.serverless
+.node_modules
+architecture_diagram.py

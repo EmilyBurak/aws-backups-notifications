@@ -1,0 +1,10 @@
+{
+    "name": "aws-backup-check",
+    "version": "0.0.1",
+    "description": "",
+    "devDependencies": {
+      "serverless": "^3.39.0",
+      "serverless-plugin-diff": "^3.0.0"
+    }
+  }
+  

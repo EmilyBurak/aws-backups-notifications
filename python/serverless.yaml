@@ -1,0 +1,20 @@
+frameworkVersion: '3'
+service: aws-backup-notifier
+
+plugins:
+  - serverless-plugin-diff
+
+provider:
+  name: aws
+  runtime: python3.11
+  deploymentBucket:
+    name: etb-serverless-applications-prod
+  deploymentPrefix: aws-backup-notifier
+
+functions:
+  checkBackups:
+    handler: handler.handler
+    environment:
+      SLACK_ENDPOINT: <YOUR_WEBHOOK_URL>
+    events:
+    - sns: ${param:backup_topic_arn}
