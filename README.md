@@ -42,6 +42,7 @@ Figuring out wiring up the lambda to Slack and the particularly special new thin
 
 ## TO DO
 
-- Work with other services and Backup
+- Work with other services and Backup.
+- Add to 'Resources' section.
 
 ## Resources
