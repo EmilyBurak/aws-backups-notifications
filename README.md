@@ -30,19 +30,26 @@ Figuring out wiring up the lambda to Slack and the particularly special new thin
 ## How To Use
 
 - Dependencies: AWS CLI, Terraform, node, npm and [Serverless Framework](https://www.serverless.com/framework/docs)(`npm i serverless -g`) with AWS admin credentials set up.
-- Create a Slack App and replace `SLACK_ENDPOINT` with your Slack webhook URL in `serverless.yaml`.
-- `entrypoint.sh` should work with a stage (`dev` is the default for serverless) and a region(`us-east-1` is the default as well but I didn't just set it all to defaults since I'm working out of `us-west-2`.)
+- Create a [Slack App](https://slack.com/apps) and replace `SLACK_ENDPOINT` in `serverless.yaml` with your Slack webhook URL.
+- `entrypoint.sh` should work with two arguments: a stage (`dev` is the default for serverless) and a region(`us-east-1` is the default as well but I didn't just set it all to defaults since I'm working out of `us-west-2`), otherwise it will prompt you to input this information.
 - `cleanup.sh` to clean up.
 
 ## Things I Learned
 
 - Got some familiarity with Backup -- its start/completion windows, how it handles deleting vaults, the Default vault popped up for a moment there, and more. The docs aren't the best, including a table they have listing the supported events for Notifications which is incorrect, not listing `BACKUP_JOB_FAILED` very critically.
-- Took a couple of different approaches including looking at EventBridge before deciding on an SNS topic to a Lambda for simplicity. Originally had more code for various things like more logging but cut it down in the end.
+- Took a couple of different approaches including looking at EventBridge before deciding on an SNS topic to a Lambda for simplicity. Originally had more code for various things like more logging but cut it down in the end, going from 20-something Terraform resources to 10 for example.
 - Worked on some bash, learned or recalled some good AWS CLI syntax like `aws ec2 wait instance-status-ok` is helpful to remember.
 
 ## TO DO
 
-- Work with other services and Backup.
-- Add to 'Resources' section.
+- Work with other services than just EC2 in conjunction with Backup, mostly RDS, which would've been more cumbersome to test and learn the service.
 
 ## Resources
+
+- https://aws.amazon.com/blogs/storage/configuring-notifications-to-monitor-aws-backup-jobs/ -- Overview of using AWS Backup Vault Notifications with SNS.
+- https://aws.amazon.com/blogs/storage/amazon-cloudwatch-events-and-metrics-for-aws-backup/ -- Another way of monitoring and alerting on AWS Backup, using EventBridge.
+- https://aws.amazon.com/blogs/storage/automate-data-recovery-validation-with-aws-backup/ -- An interesting solution for a automated data recovery validation pipeline to test backups, good example of using monitoring and Lambda with Backup.
+- https://docs.aws.amazon.com/aws-backup/latest/devguide/api-reference.html -- Backup API docs.
+- https://gist.github.com/scgoeswild/3f17292bf95d27420b513bb3d8e3d16c -- For cleaning up the Vault.
+- https://docs.aws.amazon.com/cli/latest/reference/ec2/wait/instance-status-ok.html -- I hadn't used this helpful API call before, used to wait for EC2 instances to fully start up.
+- https://www.youtube.com/watch?v=m9dhrq9iRHA and https://www.youtube.com/watch?v=j7xZ2VkLYIY -- `jq` tutorials, it's helpful for everything from parsing Terraform output to working with AWS CLI data, JSON is everywhere
