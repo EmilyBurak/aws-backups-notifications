@@ -62,6 +62,7 @@ resource "aws_backup_vault_notifications" "backup_notification" {
     "BACKUP_JOB_STARTED",
     "BACKUP_JOB_FAILED",
     "BACKUP_JOB_EXPIRED",
+    "BACKUP_JOB_COMPLETED"
   ]
 }
 
