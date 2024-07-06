@@ -31,7 +31,7 @@ resource "aws_backup_selection" "backup_selection" {
   name         = "backup-selection"
   plan_id      = aws_backup_plan.backup_plan.id
   iam_role_arn = data.aws_iam_role.backup_default_role.arn
-  resources    = [aws_instance.web.arn]
+  resources    = [aws_instance.backup_test_instance.id]
   selection_tag {
     type  = "STRINGEQUALS"
     key   = "Name"
@@ -99,11 +99,11 @@ resource "aws_sns_topic_policy" "backup_sns_policy" {
 
 
 # EC2 Instance for testing backups
-resource "aws_instance" "web" {
+resource "aws_instance" "backup_test_instance" {
   # US West 2 AMI for AWS Linux 2023, replace as you see fit
   ami           = "ami-0604d81f2fd264c7b"
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.sn1.id
+  subnet_id     = aws_subnet.backup_test_subnet1.id
 
   tags = {
     Name    = "backup-test-instance"
@@ -114,7 +114,7 @@ resource "aws_instance" "web" {
 ### NETWORKING Supportive Resources
 
 # VPC
-resource "aws_vpc" "vpc" {
+resource "aws_vpc" "backup_test_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
@@ -124,9 +124,9 @@ resource "aws_vpc" "vpc" {
 }
 
 # Private Subnet
-resource "aws_subnet" "sn1" {
+resource "aws_subnet" "backup_test_subnet1" {
   cidr_block        = "10.0.1.0/24"
-  vpc_id            = aws_vpc.vpc.id
+  vpc_id            = aws_vpc.backup_test_vpc.id
   availability_zone = "us-west-2a"
 
   tags = {
