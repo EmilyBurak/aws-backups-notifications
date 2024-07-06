@@ -39,6 +39,8 @@ Figuring out wiring up the lambda to Slack and the particularly special new thin
 - Got some familiarity with Backup -- its start/completion windows, how it handles deleting vaults, the Default vault popped up for a moment there, and more. The docs aren't the best, including a table they have listing the supported events for Notifications which is incorrect, not listing `BACKUP_JOB_FAILED` very critically.
 - Took a couple of different approaches including looking at EventBridge before deciding on an SNS topic to a Lambda for simplicity. Originally had more code for various things like more logging but cut it down in the end, going from 20-something Terraform resources to 10 for example.
 - Worked on some bash, learned or recalled some good AWS CLI syntax like `aws ec2 wait instance-status-ok` is helpful to remember.
+- Backup requires little networking configuration, not requiring specific network connectivity from an EC2 resource for example, and even [supporting cross-region backups](https://docs.aws.amazon.com/aws-backup/latest/devguide/cross-region-backup.html) -- at first I was presuming I'd need to have some particular ingress or egress set up.
+- Fun reminder while formatting the final messages to send to Slack -- Slack uses the markup language `mrkdwn` instead of markdown as detailed [here](https://api.slack.com/reference/surfaces/formatting#basics), which does trip me up because everything uses markdown these days, right?
 
 ## TO DO
 
