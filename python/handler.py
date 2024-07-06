@@ -1,7 +1,8 @@
 import json
-import urllib3
-import os
 import logging
+import os
+
+import urllib3
 
 # Set the Slack webhook URL in the environment variables
 slack_webhook_url = os.environ["SLACK_ENDPOINT"]
