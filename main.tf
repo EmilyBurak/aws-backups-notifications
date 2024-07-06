@@ -31,7 +31,7 @@ resource "aws_backup_selection" "backup_selection" {
   name         = "backup-selection"
   plan_id      = aws_backup_plan.backup_plan.id
   iam_role_arn = data.aws_iam_role.backup_default_role.arn
-  resources    = [aws_instance.backup_test_instance.id]
+  resources    = [aws_instance.backup_test_instance.arn]
   selection_tag {
     type  = "STRINGEQUALS"
     key   = "Name"
